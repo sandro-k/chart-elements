@@ -1,0 +1,20 @@
+{
+  "name": "chart-elements",
+  "keywords": "seed, polymer, web-components",
+  "main": "chart-elements.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.4",
+    "chartjs": "~0.2.0"
+  },
+  "homepage": "https://github.com/robdodson/chart-elements",
+  "_release": "33818f094a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "33818f094aea074a6369a1a0d4b03d5b63c98105"
+  },
+  "_source": "git://github.com/robdodson/chart-elements.git",
+  "_target": "master",
+  "_originalSource": "robdodson/chart-elements",
+  "_direct": true
+}
