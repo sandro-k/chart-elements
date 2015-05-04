@@ -4,10 +4,11 @@ Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 -->
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="chart-data-behavior.html">
 <link rel="import" href="chartjs-import.html">
 
 <!--
- Chartjs Pie Element
+ Chartjs Doughnut Element
 
  Easy, object oriented client side graphs for designers and developers.
 
@@ -43,47 +44,14 @@ license that can be found in the LICENSE file.
 
       properties: {
 
-        data: {
-          type: Array,
-          value: function() {
-            return [];
-          }
-        },
-
-        options: {
-          type: Object,
-          value: null
-        },
-
-        chart: {
-          type: Object,
-          observer: '_chartChanged',
-          computed: '_computeChart(options, ctx, data)'
+        kind: {
+          type: String,
+          value: 'Doughnut'
         }
 
       },
 
-      attached: function() {
-        // TODO(sjmiles): measuring not available synchronously at attached (on Chrome)
-        // TODO(sjmiles): size of canvas not settable synchronously at attached (on Chrome)
-        this.async(this._createContext, 1);
-      },
-
-      _createContext: function() {
-        this.width = Math.max(this.offsetWidth, 200);
-        this.height = Math.max(this.offsetHeight, 100);
-        this.ctx = this.$.chart.getContext('2d');
-      },
-
-      _computeChart: function(options, ctx, data) {
-        return new Chart(ctx).Doughnut(data, options);
-      },
-
-      _chartChanged: function(chart, old) {
-        if (old) {
-          old.destroy();
-        }
-      }
+      behaviors: [ChartDataBehavior]
 
     });
   </script>

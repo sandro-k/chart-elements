@@ -3,23 +3,21 @@
 
     properties: {
 
-      width: Number,
-
-      height: Number,
-
-      data: Object,
-
-      options: Object
+      data: {
+        type: Object,
+        value: function() {
+          return {};
+        }
+      }
 
     },
 
-    attached: function() {
-      this.async(function() {
-        if (this.chart) {
-          this.chart.destroy();
-        }
-        this.ctx = this.$.canvas.getContext('2d');
-      }, 1);
+    _computeChart: function(options, ctx, data) {
+      if (!data.datasets) {
+        return;
+      }
+
+      return new Chart(ctx)[this.kind](data, options);
     }
 
   };

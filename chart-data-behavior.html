@@ -1,26 +1,49 @@
 <script>
-  ChartDataBehavior = {
+ChartDataBehavior = {
 
-    properties: {
+  properties: {
 
-      width: Number,
-
-      height: Number,
-
-      data: Array,
-
-      options: Object
-
+    data: {
+      type: Array,
+      value: function() {
+        return [];
+      }
     },
 
-    attached: function() {
-      this.async(function() {
-        if (this.chart) {
-          this.chart.destroy();
-        }
-        this.ctx = this.$.canvas.getContext('2d');
-      }, 1);
+    options: {
+      type: Object,
+      value: null
+    },
+
+    chart: {
+      type: Object,
+      observer: '_chartChanged',
+      computed: '_computeChart(options, ctx, data)'
     }
 
-  };
+  },
+
+  attached: function() {
+    // TODO(sjmiles): measuring not available synchronously at attached (on Chrome)
+    // TODO(sjmiles): size of canvas not settable synchronously at attached (on Chrome)
+    this.async(this._createContext, 1);
+  },
+
+  _createContext: function() {
+    this.width = Math.max(this.offsetWidth, 200);
+    this.height = Math.max(this.offsetHeight, 100);
+    this.ctx = this.$.chart.getContext('2d');
+  },
+
+  _computeChart: function(options, ctx, data) {
+    return new Chart(ctx)[this.kind](data, options);
+  },
+
+  _chartChanged: function(chart, old) {
+    if (old) {
+      old.destroy();
+    }
+  }
+
+};
 </script>
