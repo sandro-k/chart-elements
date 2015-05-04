@@ -1,81 +1,91 @@
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="chart-js-import.html">
+<link rel="import" href="chartjs-import.html">
 
 <!--
-A bar chart is a way of showing data as bars.
+ Chartjs Pie Element
 
-It is sometimes used to show trend data, and the comparison of multiple data sets side by side.
+ Easy, object oriented client side graphs for designers and developers.
 
-##### Example
+ http://www.chartjs.org
 
-    <chart-bar width="400" height="200"
-               labels="['Jan','Feb','Mar','Apr','May','Jun','Jul']",
-               values="[[65,59,90,81,56,55,40], [28,48,40,19,96,27,100]]"
-               colors="['253,180,92','247,70,74','70,191,189','148,159,177','77,83,96']">
-    </chart-bar>
-
-@element chart-bar
-@blurb A bar chart is a way of showing data as bars.
-@status alpha
-@homepage http://robdodson.github.io/chart-elements
+ @class chart-js
+ @origin-url http://www.chartjs.org/
+ @categories Charts and Graphs
+ @license Three-clause BSD
 -->
-<polymer-element name="chart-bar" attributes="width height labels values colors options">
+
+<dom-module name="chart-bar">
+
+  <style>
+    :host {
+      display: inline-block;
+      width: 300px;
+      height: 260px;
+    }
+  </style>
+
   <template>
-    <canvas id="canvas" width="{{width}}" height="{{height}}"></canvas>
+
+    <canvas id="chart" width="{{width}}" height="{{height}}"></canvas>
+
   </template>
+
   <script>
+
     Polymer({
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-      values: [
-        [65,59,90,81,56,55,40],
-        [28,48,40,19,96,27,100]
-      ],
-      colors: [
-        "253,180,92",
-        "247,70,74",
-        "70,191,189",
-        "148,159,177",
-        "77,83,96"
-      ],
-      options: {},
-      observe: {
-        width: 'resize',
-        height: 'resize',
-        labels: 'updateChart',
-        colors: 'updateChart',
-        values: 'updateChart',
-        options: 'updateChart'
-      },
-      resize: function() {
-        if (this.chart) {
-          this.updateChart();
-        }
-      },
-      updateChart: function() {
-        this.async(function() {
-          if (this.chart) {
-            this.chart.destroy();
-            // Bindings don't seem to be taking effect properly so
-            // manually set width and height
-            this.$.canvas.setAttribute('width', this.width);
-            this.$.canvas.setAttribute('height', this.height);
+
+      is: 'chart-bar',
+
+      properties: {
+
+        data: {
+          type: Object,
+          value: function() {
+            return {};
           }
+        },
 
-          this.datasets = [];
-          this.values.forEach(function (val, i) {
-            this.datasets.push({
-              fillColor:    "rgba(" + this.colors[i] + ",0.5)",
-              strokeColor:  "rgba(" + this.colors[i] + ",1)",
-              data: this.values[i]
-            });
-          }, this);
+        options: {
+          type: Object,
+          value: null
+        },
 
-          this.data = { labels: this.labels, datasets: this.datasets };
+        chart: {
+          type: Object,
+          observer: '_chartChanged',
+          computed: '_computeChart(options, ctx, data)'
+        }
 
-          this.ctx = this.$.canvas.getContext('2d');
-          this.chart = new Chart(this.ctx).Bar(this.data, this.options);
-        }, null, 0);
+      },
+
+      attached: function() {
+        // TODO(sjmiles): measuring not available synchronously at attached (on Chrome)
+        // TODO(sjmiles): size of canvas not settable synchronously at attached (on Chrome)
+        this.async(this._createContext, 1);
+      },
+
+      _createContext: function() {
+        this.width = Math.max(this.offsetWidth, 200);
+        this.height = Math.max(this.offsetHeight, 100);
+        this.ctx = this.$.chart.getContext('2d');
+      },
+
+      _computeChart: function(options, ctx, data) {
+        return new Chart(ctx).Bar(data, options);
+      },
+
+      _chartChanged: function(chart, old) {
+        if (old) {
+          old.destroy();
+        }
       }
+
     });
   </script>
-</polymer-element>
+
+</dom-module>

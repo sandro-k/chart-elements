@@ -1,14 +1,33 @@
 {
   "name": "chart-elements",
-  "version": "0.2.0",
+  "version": "0.0.0",
+  "authors": [
+    "Rob Dodson <robdodson@google.com>"
+  ],
+  "description": "ChartJS as Custom Elements!",
   "keywords": [
-    "seed",
+    "web-components",
     "polymer",
-    "web-components"
+    "chart",
+    "ChartJS"
   ],
   "main": "chart-elements.html",
+  "license": "MIT",
+  "homepage": "https://github.com/robdodson/chart-elements/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.5",
-    "chartjs": "^1.0.2"
+    "polymer": "Polymer/polymer#v0.8.0-rc.6",
+    "Chart.js": "~1.0.2"
+  },
+  "devDependencies": {
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.8.6",
+    "web-component-tester": "*"
+  },
+  "resolutions": {
+    "polymer": "v0.8.0-rc.7"
   }
 }

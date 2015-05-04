@@ -1,0 +1,26 @@
+<script>
+  ChartDatasetBehavior = {
+
+    properties: {
+
+      width: Number,
+
+      height: Number,
+
+      data: Object,
+
+      options: Object
+
+    },
+
+    attached: function() {
+      this.async(function() {
+        if (this.chart) {
+          this.chart.destroy();
+        }
+        this.ctx = this.$.canvas.getContext('2d');
+      }, 1);
+    }
+
+  };
+</script>
