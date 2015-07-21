@@ -1,0 +1,163 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>chart-pie Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../chart-elements.html">
+</head>
+
+<body>
+<template is="dom-bind" id="demo">
+  <chart-pie data="[[pieData]]" options="[[options]]"></chart-pie>
+  <chart-doughnut data="[[doughnutData]]" options="[[options]]"></chart-doughnut>
+  <chart-polar data="[[polarData]]" options="[[options]]"></chart-polar>
+  <chart-radar data="[[radarData]]" options="[[options]]"></chart-radar>
+  <chart-line data="[[lineData]]" options="[[options]]"></chart-line>
+  <chart-bar data="[[barData]]" options="[[options]]"></chart-bar>
+</template>
+<script>
+  var demo = document.querySelector('#demo');
+
+  demo.pieData = [{
+    value: 300,
+    color: "#F7464A",
+    highlight: "#FF5A5E",
+    label: "Red"
+  }, {
+    value: 50,
+    color: "#46BFBD",
+    highlight: "#5AD3D1",
+    label: "Green"
+  }, {
+    value: 100,
+    color: "#FDB45C",
+    highlight: "#FFC870",
+    label: "Yellow"
+  }];
+
+  demo.doughnutData = [{
+    value: 300,
+    color: "#F7464A",
+    highlight: "#FF5A5E",
+    label: "Red"
+  }, {
+    value: 50,
+    color: "#46BFBD",
+    highlight: "#5AD3D1",
+    label: "Green"
+  }, {
+    value: 100,
+    color: "#FDB45C",
+    highlight: "#FFC870",
+    label: "Yellow"
+  }];
+
+  demo.polarData = [{
+    value: 300,
+    color: "#F7464A",
+    highlight: "#FF5A5E",
+    label: "Red"
+  }, {
+    value: 50,
+    color: "#46BFBD",
+    highlight: "#5AD3D1",
+    label: "Green"
+  }, {
+    value: 100,
+    color: "#FDB45C",
+    highlight: "#FFC870",
+    label: "Yellow"
+  }, {
+    value: 40,
+    color: "#949FB1",
+    highlight: "#A8B3C5",
+    label: "Grey"
+  }, {
+    value: 120,
+    color: "#4D5360",
+    highlight: "#616774",
+    label: "Dark Grey"
+  }];
+
+  demo.radarData = {
+    labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+    datasets: [{
+      label: "My First dataset",
+      fillColor: "rgba(220,220,220,0.2)",
+      strokeColor: "rgba(220,220,220,1)",
+      pointColor: "rgba(220,220,220,1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(220,220,220,1)",
+      data: [65, 59, 90, 81, 56, 55, 40]
+    }, {
+      label: "My Second dataset",
+      fillColor: "rgba(151,187,205,0.2)",
+      strokeColor: "rgba(151,187,205,1)",
+      pointColor: "rgba(151,187,205,1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(151,187,205,1)",
+      data: [28, 48, 40, 19, 96, 27, 100]
+    }]
+  };
+
+  demo.lineData = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+      label: "My First dataset",
+      fillColor: "rgba(220,220,220,0.2)",
+      strokeColor: "rgba(220,220,220,1)",
+      pointColor: "rgba(220,220,220,1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(220,220,220,1)",
+      data: [65, 59, 80, 81, 56, 55, 40]
+    }, {
+      label: "My Second dataset",
+      fillColor: "rgba(151,187,205,0.2)",
+      strokeColor: "rgba(151,187,205,1)",
+      pointColor: "rgba(151,187,205,1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(151,187,205,1)",
+      data: [28, 48, 40, 19, 86, 27, 90]
+    }]
+  };
+
+  demo.barData = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+      label: "My First dataset",
+      fillColor: "rgba(220,220,220,0.5)",
+      strokeColor: "rgba(220,220,220,0.8)",
+      highlightFill: "rgba(220,220,220,0.75)",
+      highlightStroke: "rgba(220,220,220,1)",
+      data: [65, 59, 80, 81, 56, 55, 40]
+    }, {
+      label: "My Second dataset",
+      fillColor: "rgba(151,187,205,0.5)",
+      strokeColor: "rgba(151,187,205,0.8)",
+      highlightFill: "rgba(151,187,205,0.75)",
+      highlightStroke: "rgba(151,187,205,1)",
+      data: [28, 48, 40, 19, 86, 27, 90]
+    }]
+  };
+
+  demo.options = {responsive: true};
+</script>
+</body>
+
+</html>
