@@ -20,7 +20,7 @@
     "/demo/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#v0.8.0-rc.6",
+    "polymer": "Polymer/polymer#^1.0.6",
     "Chart.js": "~1.0.2"
   },
   "devDependencies": {
@@ -28,6 +28,5 @@
     "web-component-tester": "*"
   },
   "resolutions": {
-    "polymer": "v0.8.0-rc.7"
   }
 }
