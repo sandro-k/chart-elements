@@ -26,7 +26,5 @@
   "devDependencies": {
     "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^1.0.4",
     "web-component-tester": "*"
-  },
-  "resolutions": {
   }
 }
