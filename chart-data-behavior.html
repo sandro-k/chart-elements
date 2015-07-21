@@ -30,8 +30,9 @@ ChartDataBehavior = {
   },
 
   _createContext: function() {
-    this.width = Math.max(this.offsetWidth, 200);
-    this.height = Math.max(this.offsetHeight, 100);
+//    this.width = Math.max(this.offsetWidth, 200);
+//    this.height = Math.max(this.offsetHeight, 100);
+    console.log(this);
     this.ctx = this.$.chart.getContext('2d');
   },
 
