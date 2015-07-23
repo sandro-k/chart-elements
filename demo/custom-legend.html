@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Legend</title>
+
+  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <link href="../../polymer/polymer.html" rel="import">
+  <link href="../chart-elements.html" rel="import">
+
+</head>
+<body>
+
+<dom-module id="custom-legend">
+  <style is="custom-style">
+    chart-line {
+      display: block;
+      margin: 1em;
+      max-width: 100%;
+      padding: 4em 0.5em 0.5em 0.5em;
+    }
+    #legend {
+      position: absolute;
+      top: 1.5em;
+      right: 2em;
+      border-radius: 0.5em;
+      padding: 0.5em;
+      background: rgba(0,0,0,0.75);
+      color: #FFF;
+      font-weight: 200;
+      font-family: 'Roboto', 'Noto', sans-serif;;
+    }
+    
+    #legend ul, #legend  li {
+      line-height: 1em;
+      margin: 0;
+      list-style: none;
+      padding: 0;
+    }
+    .icon {
+      display: inline-block;
+      height: 1em;
+      width: 1em;
+      border-radius: 0.5em;
+      margin-right: 0.5em;
+    }
+
+  </style>
+
+  <template>
+    <div id="legend"></div>
+    <chart-line chart="{{chart}}" id="chart" data="{{lineData}}" options="{{options}}"></chart-line>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'custom-legend',
+    properties: {
+
+      chart: {
+        type: Object,
+        observer: '_chartChanged'
+      },
+
+      lineData: {
+        type: Object,
+        value: {}
+      }
+
+    },
+    ready: function () {
+
+      this.lineData = {
+        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+        datasets: [{
+          label: "My First dataset",
+          fillColor: "rgba(220,220,220,0.2)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: [65, 59, 90, 81, 56, 55, 40]
+        }, {
+          label: "My Second dataset",
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [28, 48, 40, 19, 96, 27, 100]
+        }]
+      };
+
+      this.options = {
+        responsive: true,
+        legendTemplate :
+        '<ul>'
+        +'<% for (var i=0; i<datasets.length; i++) { %>'
+          +'<li>'
+            +'<div class="icon" style=\"background-color:<%=datasets[i].strokeColor%>\"></div>'
+            +'<% if (datasets[i].label) { %><%= datasets[i].label %><% } %>'
+          +'</li>'
+        +'<% } %>'
+        +'</ul>'
+      };
+    },
+
+    _chartChanged: function(chart, old) {
+      if (chart){
+        this._generateLegend(chart);
+      }
+    },
+
+    _generateLegend: function (chart) {
+      var legend = chart.generateLegend();
+      Polymer.dom(this.$.legend).innerHTML = legend;
+    }
+  });
+</script>
+
+<custom-legend></custom-legend>
+
+</body>
+</html>
+
+
