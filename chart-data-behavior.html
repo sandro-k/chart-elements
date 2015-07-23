@@ -17,6 +17,7 @@ ChartDataBehavior = {
 
     chart: {
       type: Object,
+      notify: true,
       observer: '_chartChanged',
       computed: '_computeChart(options, ctx, data)'
     }
