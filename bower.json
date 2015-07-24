@@ -21,10 +21,12 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.6",
-    "Chart.js": "~1.0.2"
+    "Chart.js": "~1.0.2",
+    "Chart.Scatter.js": "~1.1.2"
   },
   "devDependencies": {
     "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^1.0.4",
-    "web-component-tester": "*"
+    "web-component-tester": "*",
+    "paper-slider": "polymerelements/paper-slider#~1.0.3"
   }
 }

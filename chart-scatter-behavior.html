@@ -1,0 +1,53 @@
+<script>
+ChartScatterBehavior = {
+
+  _computeChart: function(options, ctx, data) {
+    if (!data) {
+      return;
+    }
+
+    return new Chart(ctx)[this.kind](data, options);
+  },
+
+  /**
+   * Add a new point
+   * @param x
+   * @param y
+   * @param r the radius (optional, default = 1)
+   */
+  addPoint: function (x, y, r) {
+
+    // default size
+    r = arguments.length < 3 ? 1 : r;
+
+    this.chart.datasets[0].addPoint(x, y, r);
+    this.chart.update();
+  },
+
+  /**
+   * Add a new point with radius
+   * @param index
+   * @param x
+   * @param y
+   * @param r the radius (optional, default = 1)
+   */
+  setPointData: function (index, x, y, r) {
+
+    // default size
+    r = arguments.length < 4 ? 1 : r;
+    
+    this.chart.datasets[0].setPointData(index, x, y, r);
+    this.chart.update();
+  },
+
+  /**
+   * Remove the point at index
+   * @param index
+   */
+  removePoint: function (index) {
+    this.chart.datasets[0].removePoint(index);
+    this.chart.update();
+  }
+
+};
+</script>

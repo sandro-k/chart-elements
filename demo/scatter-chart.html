@@ -1,0 +1,264 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>chart-scatter Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../paper-slider/paper-slider.html">
+  <link rel="import" href="../../paper-button/paper-button.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
+  <link rel="import" href="../../paper-styles/demo-pages.html">
+  <link rel="import" href="../chart-elements.html">
+</head>
+
+<body>
+<template is="dom-bind" id="demo">
+
+  <style is="custom-style">
+    body {
+      padding: 40px;
+    }
+
+    #chart {
+      margin-top: 1em;
+    }
+
+    .jumbotron {
+      background: #4DB7EC;
+      color: #FFFFFF;
+      font-size: 2em;
+    }
+
+  </style>
+
+  <div class="vertical center-justified layout">
+    <div class="vertical-section jumbotron">
+      <h1>Chart.Scatter</h1>
+    </div>
+
+    <div class="vertical-section">
+      <h1>Adding Items</h1>
+      <paper-button on-click="addRandomValue" raised>Add Item</paper-button>
+
+      <paper-button on-click="addRandomValueWithRadius" raised>Add Item with Radius</paper-button>
+      <paper-slider min="1" max="50" value="{{radius}}" editable pin></paper-slider>
+
+      <paper-button on-click="alterValueAtIndex" raised>Alter Value At Index</paper-button>
+
+      <!--<paper-slider min="0" max="5" value="{{index}}" editable pin></paper-slider>-->
+      <!--<paper-input value="{{value}}" min="0" max="255" type="number"></paper-input>-->
+
+
+      <chart-scatter id="chart" height="1" width="3" data="[[data]]" options="[[options]]"></chart-scatter>
+    </div>
+    <div class="vertical-section">
+      <h1>Number scale</h1>
+      <chart-scatter height="1" width="3" data="[[data2]]" options="[[options2]]"></chart-scatter>
+    </div>
+    <div class="vertical-section">
+      <h1>Date scale</h1>
+      <chart-scatter height="1" width="3" data="[[data3]]" options="[[options3]]"></chart-scatter>
+    </div>
+    <div class="vertical-section">
+      <h1>Custom point radius</h1>
+      <chart-scatter height="1" width="3" data="[[data4]]" options="[[options4]]"></chart-scatter>
+    </div>
+  </div>
+</template>
+<script>
+  var demo = document.querySelector('#demo');
+
+  var now = new Date();
+
+  demo.radius = 1;
+  demo.index = 0;
+  demo.value = 0;
+
+  demo.data = [
+    {
+      label: 'temperature',
+      strokeColor: '#A31515',
+      data: [
+        {
+          x: new Date().setMinutes(now.getMinutes() - 7),
+          y: 25
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 6),
+          y: 28
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 5),
+          y: 22
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 4),
+          y: 18
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 3),
+          y: 25
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 2),
+          y: 24
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 1),
+          y: 24
+        }
+      ]
+    }];
+
+  demo.options = {
+    responsive: true,
+    bezierCurve: false,
+    animationSteps: 1,
+    showTooltips: true,
+    scaleShowHorizontalLines: true,
+    scaleShowLabels: true,
+    scaleType: "date",
+    scaleLabel: "<%=value%>°C"
+  };
+
+  demo.addRandomValue = function () {
+    var max = 30;
+    var min = 10;
+    var value = Math.floor((Math.random() * (max - min)) + min);
+    var chart = document.querySelector('#chart');
+    chart.addPoint(new Date(), value);
+  };
+
+
+  demo.addRandomValueWithRadius = function () {
+    var max = 30;
+    var min = 10;
+    var value = Math.floor((Math.random() * (max - min)) + min);
+    var chart = document.querySelector('#chart');
+    chart.addPoint(new Date(), value, demo.radius);
+  };
+
+  demo.alterValueAtIndex = function () {
+    var chart = document.querySelector('#chart');
+    console.log('aa');
+//    chart.data[0].data[3].x
+//    chart.data[0].data[3].x
+
+    chart.setPointData(3, chart.chart.datasets[0].points[3].arg, 4);
+  };
+
+
+  demo.data2 = [
+    {
+      label: 'complex-1',
+      strokeColor: '#F16220',
+      data: [
+        {x: 19, y: 65}, {x: 27, y: 59}, {x: 28, y: 69}, {x: 40, y: 81},
+        {x: 48, y: 56}, {x: 86, y: 55}, {x: 90, y: 40}, {x: 95, y: 60}
+      ]
+    },
+    {
+      label: 'complex-2',
+      strokeColor: '#007ACC',
+      data: [
+        {x: 19, y: 75}, {x: 27, y: 69}, {x: 28, y: 70}, {x: 40, y: 31},
+        {x: 48, y: 76}, {x: 52, y: 23}, {x: 24, y: 32},
+        {x: 86, y: 45}, {x: 90, y: 50}
+      ]
+    }
+  ];
+
+
+  demo.options2 = {
+    responsive: true,
+    bezierCurve: true,
+    showTooltips: true,
+    scaleShowHorizontalLines: true,
+    scaleShowLabels: true,
+    scaleLabel: "<%=value%>°C",
+    scaleArgLabel: "<%=value%>mmm",
+    scaleBeginAtZero: true
+  };
+
+  demo.data3 = [
+    {
+      label: 'temperature',
+      strokeColor: '#A31515',
+      data: [
+        {
+          x: new Date('2011-04-11T11:45:00'),
+          y: 25
+        },
+        {
+          x: new Date('2011-04-11T12:51:00'),
+          y: 28
+        },
+        {
+          x: new Date('2011-04-11T14:10:00'),
+          y: 22
+        },
+        {
+          x: new Date('2011-04-11T15:15:00'),
+          y: 18
+        },
+        {
+          x: new Date('2011-04-11T17:00:00'),
+          y: 25
+        },
+        {
+          x: new Date('2011-04-11T21:00:00'),
+          y: 24
+        },
+        {
+          x: new Date('2011-04-12T13:00:00'),
+          y: 24
+        }
+      ]
+    }];
+
+  demo.options3 = {
+    responsive: true,
+    bezierCurve: true,
+    showTooltips: true,
+    scaleShowHorizontalLines: true,
+    scaleShowLabels: true,
+    scaleType: "date",
+    scaleLabel: "<%=value%>°C"
+  };
+
+  demo.data4 = [
+    {
+      label: 'Bubble chart example',
+      strokeColor: 'rgba(77, 180, 73, 0.3)',
+      data: [
+        {x: 1, y: 10, r: 7}, {x: 2, y: 12, r: 5}, {x: 3, y: 14, r: 10}, {x: 4, y: 18, r: 6},
+        {x: 5, y: 26, r: 9}, {x: 6, y: 42, r: 4}, {x: 7, y: 60, r: 8}
+      ]
+    }
+  ];
+
+  demo.options4 = {
+    responsive: true,
+    bezierCurve: true,
+    showTooltips: true,
+    scaleShowHorizontalLines: true,
+    scaleShowLabels: true,
+    scaleBeginAtZero: true,
+    datasetStroke: false
+  };
+</script>
+</body>
+
+</html>
+

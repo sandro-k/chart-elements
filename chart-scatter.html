@@ -1,0 +1,61 @@
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="chart-data-behavior.html">
+<link rel="import" href="chart-dataset-behavior.html">
+<link rel="import" href="chart-scatter-behavior.html">
+<link rel="import" href="chartjs-import.html">
+
+<!--
+ Chartjs Scatter Element
+ Chart.Scatter - is an addon for the Chart.js library - http://dima117.github.io/Chart.Scatter/
+
+ Easy, object oriented client side graphs for designers and developers.
+
+ http://www.chartjs.org
+
+ @class chart-js
+ @origin-url http://www.chartjs.org/
+ @origin-url http://dima117.github.io/Chart.Scatter/
+ @categories Charts and Graphs
+ @license Three-clause BSD
+ @license MIT
+-->
+
+<dom-module id="chart-scatter">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+
+    <canvas id="chart" width="{{width}}" height="{{height}}"></canvas>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'chart-scatter',
+
+      properties: {
+
+        kind: {
+          type: String,
+          value: 'Scatter'
+        }
+      },
+
+      behaviors: [ChartDataBehavior, ChartScatterBehavior]
+
+    });
+  </script>
+
+</dom-module>
