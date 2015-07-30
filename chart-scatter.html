@@ -29,14 +29,20 @@ license that can be found in the LICENSE file.
 
   <style>
     :host {
-      display: block;
+      display: flex;
+      align-self: stretch;
+      flex: 1;
     }
+
+    canvas {
+      display: flex;
+      flex: 1;
+    }
+
   </style>
 
   <template>
-
-    <canvas id="chart" width="{{width}}" height="{{height}}"></canvas>
-
+    <canvas id="chart"></canvas>
   </template>
 
   <script>

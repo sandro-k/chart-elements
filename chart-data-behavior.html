@@ -5,14 +5,14 @@ ChartDataBehavior = {
 
     data: {
       type: Array,
-      value: function() {
-        return [];
-      }
+      notify: true,
+      value: []
     },
 
     options: {
       type: Object,
-      value: null
+      notify: true,
+      value: {}
     },
 
     chart: {
@@ -45,6 +45,5 @@ ChartDataBehavior = {
       old.destroy();
     }
   }
-
 };
 </script>
