@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>chart-scatter Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../paper-slider/paper-slider.html">
+  <link rel="import" href="../../paper-button/paper-button.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
+  <link rel="import" href="../../paper-styles/demo-pages.html">
+  <link rel="import" href="../chart-elements.html">
+</head>
+
+<body>
+<template is="dom-bind" id="demo">
+
+  <style is="custom-style">
+    body {
+      padding: 40px;
+    }
+
+    .jumbotron {
+      background: #4DB7EC;
+      color: #FFFFFF;
+      font-size: 2em;
+    }
+
+    #content {
+      display: flex;
+      flex: 1;
+      /*background: greenyellow;*/
+      flex-direction: row;
+    }
+
+    chart-scatter {
+      display: flex;
+      flex: 1;
+      /*background: pink;*/
+      margin: 0 0.5em;
+    }
+
+  </style>
+
+  <div class="vertical center-justified layout">
+    <div class="vertical-section jumbotron">
+      <h1>Chart.Scatter</h1>
+    </div>
+
+    <div class="vertical-section">
+      <div id="content">
+        <chart-scatter data="[[data]]" options="[[options]]"></chart-scatter>
+        <chart-scatter data="[[data]]" options="[[options]]"></chart-scatter>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  var demo = document.querySelector('#demo');
+
+  var now = new Date();
+
+  demo.data = [
+    {
+      label: 'temperature',
+      strokeColor: '#A31515',
+      data: [
+        {
+          x: new Date().setMinutes(now.getMinutes() - 7),
+          y: 25
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 6),
+          y: 28
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 5),
+          y: 22
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 4),
+          y: 18
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 3),
+          y: 25
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 2),
+          y: 24
+        },
+        {
+          x: new Date().setMinutes(now.getMinutes() - 1),
+          y: 24
+        }
+      ]
+    }];
+
+  demo.options = {
+    responsive: true,
+    bezierCurve: false,
+    animationSteps: 1,
+    showTooltips: true,
+    scaleShowHorizontalLines: true,
+    scaleShowLabels: true,
+    scaleType: "date",
+    scaleLabel: "<%=value%>°C"
+  };
+
+  demo.addRandomValue = function () {
+    var max = 30;
+    var min = 10;
+    var value = Math.floor((Math.random() * (max - min)) + min);
+    var chart = document.querySelector('#chart');
+    chart.addPoint(new Date(), value);
+  };
+
+
+  demo.addRandomValueWithRadius = function () {
+    var max = 30;
+    var min = 10;
+    var value = Math.floor((Math.random() * (max - min)) + min);
+    var chart = document.querySelector('#chart');
+    chart.addPoint(new Date(), value, demo.radius);
+  };
+
+  demo.alterValueAtIndex = function () {
+    var chart = document.querySelector('#chart');
+//    chart.data[0].data[3].x
+//    chart.data[0].data[3].x
+
+    chart.setPointData(3, chart.chart.datasets[0].points[3].arg, 4);
+  };
+</script>
+</body>
+
+</html>
+
